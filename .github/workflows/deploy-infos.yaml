@@ -1,0 +1,25 @@
+name: deploy-infos
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'infos/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - run: docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+      - run: cd infos && docker build -t naoufalbelhour/infos .
+      - run: docker push naoufalbelhour/infos
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl kubernetes cluster kubeconfig save skeleton
+      - run: kubectl rollout restart deployment news-depl
