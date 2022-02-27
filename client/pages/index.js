@@ -1,13 +1,13 @@
 import Link from 'next/link';
 
-const LandingPage = ({ currentUser, tickets }) => {
-  const ticketList = tickets.map((ticket) => {
+const LandingPage = ({ currentUser, infos }) => {
+  const infoList = infos.map((info) => {
     return (
-      <tr key={ticket.id}>
-        <td>{ticket.title}</td>
-        <td>{ticket.price}</td>
+      <tr key={info.id}>
+        <td>{info.title}</td>
+        <td>{info.content}</td>
         <td>
-          <Link href="/tickets/[ticketId]" as={`/tickets/${ticket.id}`}>
+          <Link href="/infos/[infoId]" as={`/infos/${info.id}`}>
             <a>View</a>
           </Link>
         </td>
@@ -17,25 +17,25 @@ const LandingPage = ({ currentUser, tickets }) => {
 
   return (
     <div>
-      <h1>Tickets</h1>
+      <h1>Infos</h1>
       <table className="table">
         <thead>
           <tr>
             <th>Title</th>
-            <th>Price</th>
+            <th>content</th>
             <th>Link</th>
           </tr>
         </thead>
-        <tbody>{ticketList}</tbody>
+        <tbody>{infoList}</tbody>
       </table>
     </div>
   );
 };
 
 LandingPage.getInitialProps = async (context, client, currentUser) => {
-  const { data } = await client.get('/api/tickets');
+  const { data } = await client.get('/api/infos');
 
-  return { tickets: data };
+  return { infos: data };
 };
 
 export default LandingPage;

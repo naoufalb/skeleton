@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: news-depl
+  name: infos-depl
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: news
+      app: infos
   template:
     metadata:
       labels:
-        app: news
+        app: infos
     spec:
       containers:
-        - name: news
-          image: naoufalbelhour/skeleton-news
+        - name: infos
+          image: naoufalbelhour/skeleton-infos
           env:
             - name: NATS_CLIENT_ID
               valueFrom:
@@ -25,7 +25,7 @@ spec:
             - name: NATS_CLUSTER_ID
               value: skeleton
             - name: MONGO_URI
-              value: 'mongodb://news-mongo-srv:27017/news'
+              value: 'mongodb://infos-mongo-srv:27017/infos'
             - name: JWT_KEY
               valueFrom:
                 secretKeyRef:
@@ -35,12 +35,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: news-srv
+  name: infos-srv
 spec:
   selector:
-    app: news
+    app: infos
   ports:
-    - name: news
+    - name: infos
       protocol: TCP
       port: 3000
       targetPort: 3000

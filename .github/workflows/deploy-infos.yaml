@@ -16,10 +16,10 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      - run: cd infos && docker build -t naoufalbelhour/infos .
-      - run: docker push naoufalbelhour/infos
+      - run: cd infos && docker build -t naoufalbelhour/skeleton-infos .
+      - run: docker push naoufalbelhour/skeleton-infos
       - uses: digitalocean/action-doctl@v2
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl kubernetes cluster kubeconfig save skeleton
-      - run: kubectl rollout restart deployment news-depl
+      - run: kubectl rollout restart deployment infos-depl
