@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import { NotFoundError } from '@naoufalbelhour/common';
+import { NotFoundError } from '@naoufalbelhour/skeleton-common';
 import { Info } from '../models/info';
 
 const router = express.Router();
@@ -14,4 +14,4 @@ router.get('/api/info/:id', async (req: Request, res: Response) => {
   res.send(info);
 });
 
-export { router as showTicketRouter };
+export { router as showInfoRouter };

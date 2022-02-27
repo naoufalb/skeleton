@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import { body } from 'express-validator';
-import { requireAuth, validateRequest } from '@naoufalbelhour/common';
+import { requireAuth, validateRequest } from '@naoufalbelhour/skeleton-common';
 import { Info } from '../models/info';
 import { InfoCreatedPublisher } from '../events/publishers/info-created-publisher';
 import { natsWrapper } from '../nats-wrapper';
@@ -36,4 +36,4 @@ router.post(
   }
 );
 
-export { router as createTicketRouter };
+export { router as createInfoRouter };

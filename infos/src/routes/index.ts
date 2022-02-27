@@ -11,4 +11,4 @@ router.get('/api/info', async (req: Request, res: Response) => {
   res.send(info);
 });
 
-export { router as indexTicketRouter };
+export { router as indexInfoRouter };

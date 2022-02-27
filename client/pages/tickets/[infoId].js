@@ -13,7 +13,7 @@ const InfoShow = ({ info }) => {
   );
 };
 
-TicketShow.getInitialProps = async (context, client) => {
+InfoShow.getInitialProps = async (context, client) => {
   const { infoId } = context.query;
   const { data } = await client.get(`/api/infos/${infoId}`);
 

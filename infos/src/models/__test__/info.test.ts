@@ -4,7 +4,7 @@ it('implements optimistic concurrency control', async () => {
   // Create an instance of a info
   const info = Info.build({
     title: 'concert',
-    price: 5,
+    content: 5,
     userId: '123',
   });
 
@@ -16,8 +16,8 @@ it('implements optimistic concurrency control', async () => {
   const secondInstance = await Info.findById(info.id);
 
   // make two separate changes to the infos we fetched
-  firstInstance!.set({ price: 10 });
-  secondInstance!.set({ price: 15 });
+  firstInstance!.set({ content: 10 });
+  secondInstance!.set({ content: 15 });
 
   // save the first fetched info
   await firstInstance!.save();
@@ -35,7 +35,7 @@ it('implements optimistic concurrency control', async () => {
 it('increments the version number on multiple saves', async () => {
   const info = Info.build({
     title: 'concert',
-    price: 20,
+    content: 20,
     userId: '123',
   });
 

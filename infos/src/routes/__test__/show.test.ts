@@ -10,22 +10,22 @@ it('returns a 404 if the info is not found', async () => {
 
 it('returns the info if the info is found', async () => {
   const title = 'concert';
-  const price = 20;
+  const content = 20;
 
   const response = await request(app)
     .post('/api/infos')
     .set('Cookie', global.signin())
     .send({
       title,
-      price,
+      content,
     })
     .expect(201);
 
-  const ticketResponse = await request(app)
+  const tnfoResponse = await request(app)
     .get(`/api/infos/${response.body.id}`)
     .send()
     .expect(200);
 
-  expect(ticketResponse.body.title).toEqual(title);
-  expect(ticketResponse.body.price).toEqual(price);
+  expect(tnfoResponse.body.title).toEqual(title);
+  expect(tnfoResponse.body.content).toEqual(content);
 });

@@ -11,7 +11,7 @@ it('returns a 404 if the provided id does not exist', async () => {
     .set('Cookie', global.signin())
     .send({
       title: 'aslkdfj',
-      price: 20,
+      content: 20,
     })
     .expect(404);
 });
@@ -22,7 +22,7 @@ it('returns a 401 if the user is not authenticated', async () => {
     .put(`/api/infos/${id}`)
     .send({
       title: 'aslkdfj',
-      price: 20,
+      content: 20,
     })
     .expect(401);
 });
@@ -33,7 +33,7 @@ it('returns a 401 if the user does not own the info', async () => {
     .set('Cookie', global.signin())
     .send({
       title: 'asldkfj',
-      price: 20,
+      content: 20,
     });
 
   await request(app)
@@ -41,12 +41,12 @@ it('returns a 401 if the user does not own the info', async () => {
     .set('Cookie', global.signin())
     .send({
       title: 'alskdjflskjdf',
-      price: 1000,
+      content: 1000,
     })
     .expect(401);
 });
 
-it('returns a 400 if the user provides an invalid title or price', async () => {
+it('returns a 400 if the user provides an invalid title or content', async () => {
   const cookie = global.signin();
 
   const response = await request(app)
@@ -54,7 +54,7 @@ it('returns a 400 if the user provides an invalid title or price', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'asldkfj',
-      price: 20,
+      content: 20,
     });
 
   await request(app)
@@ -62,7 +62,7 @@ it('returns a 400 if the user provides an invalid title or price', async () => {
     .set('Cookie', cookie)
     .send({
       title: '',
-      price: 20,
+      content: 20,
     })
     .expect(400);
 
@@ -71,7 +71,7 @@ it('returns a 400 if the user provides an invalid title or price', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'alskdfjj',
-      price: -10,
+      content: -10,
     })
     .expect(400);
 });
@@ -84,7 +84,7 @@ it('updates the info provided valid inputs', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'asldkfj',
-      price: 20,
+      content: 20,
     });
 
   await request(app)
@@ -92,16 +92,16 @@ it('updates the info provided valid inputs', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'new title',
-      price: 100,
+      content: 100,
     })
     .expect(200);
 
-  const ticketResponse = await request(app)
+  const tnfoResponse = await request(app)
     .get(`/api/infos/${response.body.id}`)
     .send();
 
-  expect(ticketResponse.body.title).toEqual('new title');
-  expect(ticketResponse.body.price).toEqual(100);
+  expect(tnfoResponse.body.title).toEqual('new title');
+  expect(tnfoResponse.body.content).toEqual(100);
 });
 
 it('publishes an event', async () => {
@@ -112,7 +112,7 @@ it('publishes an event', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'asldkfj',
-      price: 20,
+      content: 20,
     });
 
   await request(app)
@@ -120,7 +120,7 @@ it('publishes an event', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'new title',
-      price: 100,
+      content: 100,
     })
     .expect(200);
 
@@ -135,7 +135,7 @@ it('rejects updates if the info is reserved', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'asldkfj',
-      price: 20,
+      content: 20,
     });
 
   const info = await Info.findById(response.body.id);
@@ -147,7 +147,7 @@ it('rejects updates if the info is reserved', async () => {
     .set('Cookie', cookie)
     .send({
       title: 'new title',
-      price: 100,
+      content: 100,
     })
     .expect(400);
 });

@@ -28,7 +28,7 @@ it('returns an error if an invalid title is provided', async () => {
     .set('Cookie', global.signin())
     .send({
       title: '',
-      price: 10,
+      content: 10,
     })
     .expect(400);
 
@@ -36,18 +36,18 @@ it('returns an error if an invalid title is provided', async () => {
     .post('/api/infos')
     .set('Cookie', global.signin())
     .send({
-      price: 10,
+      content: 10,
     })
     .expect(400);
 });
 
-it('returns an error if an invalid price is provided', async () => {
+it('returns an error if an invalid content is provided', async () => {
   await request(app)
     .post('/api/infos')
     .set('Cookie', global.signin())
     .send({
       title: 'asldkjf',
-      price: -10,
+      content: -10,
     })
     .expect(400);
 
@@ -71,13 +71,13 @@ it('creates a info with valid inputs', async () => {
     .set('Cookie', global.signin())
     .send({
       title,
-      price: 20,
+      content: 20,
     })
     .expect(201);
 
   infos = await Info.find({});
   expect(infos.length).toEqual(1);
-  expect(infos[0].price).toEqual(20);
+  expect(infos[0].content).toEqual(20);
   expect(infos[0].title).toEqual(title);
 });
 
@@ -89,7 +89,7 @@ it('publishes an event', async () => {
     .set('Cookie', global.signin())
     .send({
       title,
-      price: 20,
+      content: 20,
     })
     .expect(201);
 

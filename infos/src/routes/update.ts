@@ -6,7 +6,7 @@ import {
   requireAuth,
   NotAuthorizedError,
   BadRequestError,
-} from '@naoufalbelhour/common';
+} from '@naoufalbelhour/skeleton-common';
 import { Info } from '../models/info';
 import { InfoUpdatedPublisher } from '../events/publishers/info-updated-publisher';
 import { natsWrapper } from '../nats-wrapper';
@@ -40,7 +40,7 @@ router.put(
     new InfoUpdatedPublisher(natsWrapper.client).publish({
       id: info.id,
       title: info.content,
-      content: info.price,
+      content: info.content,
       userId: info.userId,
       version: info.version,
     });
@@ -49,4 +49,4 @@ router.put(
   }
 );
 
-export { router as updateTicketRouter };
+export { router as updateInfoRouter };

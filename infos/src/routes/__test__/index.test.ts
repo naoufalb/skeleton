@@ -1,17 +1,17 @@
 import request from 'supertest';
 import { app } from '../../app';
 
-const createTicket = () => {
+const createInfo = () => {
   return request(app).post('/api/infos').set('Cookie', global.signin()).send({
     title: 'asldkf',
-    price: 20,
+    content: 20,
   });
 };
 
 it('can fetch a list of infos', async () => {
-  await createTicket();
-  await createTicket();
-  await createTicket();
+  await createInfo();
+  await createInfo();
+  await createInfo();
 
   const response = await request(app).get('/api/infos').send().expect(200);
 

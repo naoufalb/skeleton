@@ -15,8 +15,8 @@ interface InfoDoc extends mongoose.Document {
   orderId?: string;
 }
 
-interface InfoModel extends mongoose.Model<TicketDoc> {
-  build(attrs: TicketAttrs): TicketDoc;
+interface InfoModel extends mongoose.Model<InfoDoc> {
+  build(attrs: InfoAttrs): InfoDoc;
 }
 
 const infoSchema = new mongoose.Schema(
@@ -46,10 +46,10 @@ const infoSchema = new mongoose.Schema(
 infoSchema.set('versionKey', 'version');
 infoSchema.plugin(updateIfCurrentPlugin);
 
-infoSchema.statics.build = (attrs: TicketAttrs) => {
+infoSchema.statics.build = (attrs: InfoAttrs) => {
   return new Info(attrs);
 };
 
-const Info = mongoose.model<TicketDoc, TicketModel>('Info', infoSchema);
+const Info = mongoose.model<InfoDoc, InfoModel>('Info', infoSchema);
 
 export { Info };

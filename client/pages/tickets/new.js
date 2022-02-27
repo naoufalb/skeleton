@@ -10,7 +10,7 @@ const NewInfo = () => {
     method: 'post',
     body: {
       title,
-      price,
+      content,
     },
     onSuccess: () => Router.push('/'),
   });
