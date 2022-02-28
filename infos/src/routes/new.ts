@@ -8,7 +8,7 @@ import { body } from 'express-validator';
 const router = express.Router();
 
 router.post(
-  '/api/info',
+  '/api/infos',
   requireAuth,
   [
     body('title').not().isEmpty().withMessage('Title is required'),

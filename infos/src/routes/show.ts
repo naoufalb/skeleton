@@ -4,7 +4,7 @@ import { Info } from '../models/info';
 
 const router = express.Router();
 
-router.get('/api/info/:id', async (req: Request, res: Response) => {
+router.get('/api/infos/:id', async (req: Request, res: Response) => {
   const info = await Info.findById(req.params.id);
 
   if (!info) {

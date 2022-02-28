@@ -8,7 +8,6 @@ const InfoShow = ({ info }) => {
     <div>
       <h1>{info.title}</h1>
       <h4>Content: {info.content}</h4>
-      {errors}
     </div>
   );
 };
